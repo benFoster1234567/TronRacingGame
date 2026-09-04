@@ -1,4 +1,4 @@
-#include "core/ECS/SystemRegistry.h"
+#include "core/ecs/coordinator/SystemRegistry.h"
 
 void Engine::Core::ECS::SystemRegistry::entityDestroyed(Entity entity)
 {

@@ -1,6 +1,10 @@
 #pragma once
-#include "Component.h"
+
 #include "ECS.h"
+#include <cassert>
+#include <unordered_map>
+#include <stdexcept>
+
 namespace Engine::Core::ECS
 {
 	class IComponentArray

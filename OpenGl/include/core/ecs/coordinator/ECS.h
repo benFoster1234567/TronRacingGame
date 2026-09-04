@@ -13,6 +13,12 @@ namespace Engine::Core::ECS
 	const ComponentType MAX_COMPONENTS = 128;
 
 	using Signature = std::bitset<MAX_COMPONENTS>;
+
+	struct ComponentBase
+	{
+		virtual ~ComponentBase() = default;
+	};
+
 }
 
 

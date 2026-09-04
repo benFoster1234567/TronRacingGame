@@ -5,8 +5,8 @@
 #include "core/assets/AssetManager.h"
 #include "core/input/KeyboardInput.h"
 #include "core/input/Keys.h"
-#include "core/ecs/ECS.h"
-#include "core/Game/Game.h"
+//#include "core/ecs/ECS.h"
+#include "../ecs/Game.h"
 namespace Engine::Core
 {
 	constexpr int MAX_ENTITIES{ 100 };
@@ -44,9 +44,9 @@ namespace Engine::Core
 		AssetPipeline assetPipeline;
 		InputBridge inputHandler;
 	
-		EngineSystem() : assetManager{}, assetPipeline{}, inputHandler{}, game(assetManager, inputHandler)
-		{
-		}
+		EngineSystem() 
+			: assetManager{}, assetPipeline{}, inputHandler{}, game(assetManager, inputHandler) 
+		{} 
 
 		void setUpGame() { game.setup(); }
 

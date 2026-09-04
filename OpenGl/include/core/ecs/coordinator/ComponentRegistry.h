@@ -1,7 +1,11 @@
 #pragma once
-#include "Component.h"
+
 #include <typeindex>
-#include <unordered_set>
+#include <cassert>
+#include <concepts>
+#include <memory>
+#include <typeindex>
+#include <unordered_map>
 #include "ComponentArray.h"
 namespace Engine::Core::ECS
 {

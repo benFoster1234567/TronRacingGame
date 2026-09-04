@@ -1,9 +1,25 @@
 #pragma once
 
-#include "core/ecs/ECS.h"
+#include "coordinator/ECS.h"
 #include "core/assets/assetManager.h"
-#include "core/ecs/Coordinator.h"
-#include "core/ecs/Systems.h"
+#include "coordinator/Coordinator.h"
+
+#include "components/CameraComponents.h"
+#include "components/CarControllerComponent.h"
+#include "components/MaterialDataComponent.h"
+#include "components/MeshComponent.h"
+#include "components/MotionPropertiesComponent.h"
+#include "components/MouseInputSettingsComponent.h"
+#include "components/PlayerControllerComponent.h"
+#include "components/PointlightComponents.h"
+#include "components/ShaderComponent.h"
+#include "components/TransformComponent.h"
+
+#include "systems/ControlSystems.h"
+#include "systems/LightSystems.h"
+#include "systems/PhysicsSystem.h"
+#include "systems/RenderDispatcherSystems.h"
+
 #include "core/input/KeyboardInput.h"
 
 namespace Engine::Core::Game

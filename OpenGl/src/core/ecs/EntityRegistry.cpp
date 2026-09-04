@@ -1,4 +1,4 @@
-#include "core/ECS/EntityRegistry.h"
+#include "core/ecs/coordinator/EntityRegistry.h"
 #include <assert.h>
 
 Engine::Core::ECS::Entity Engine::Core::ECS::EntityRegistry::createEntity()

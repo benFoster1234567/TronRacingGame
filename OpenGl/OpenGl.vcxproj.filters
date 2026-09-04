@@ -75,10 +75,58 @@
     <ClCompile Include="src\core\ecs\ComponentArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\core\ecs\Systems.cpp">
+    <ClCompile Include="src\core\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\AssetManager.cpp">
+    <ClCompile Include="include\core\ecs\components\TransformComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\CameraComponents.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\MeshComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\ShaderComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\MaterialDataComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\PlayerControllerComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\CarControllerComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\MotionPropertiesComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\components\MouseInputSettingsComponent.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\RenderDispatcherSystems.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\ControlSystems.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\LightSystems.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\PhysicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\LightSystems.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\ControlSystems.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\RenderDispatcherSystems.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\core\ecs\systems\PhysicsSystem.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,40 +191,31 @@
     <ClInclude Include="include\infra\engine\DebugConsoleUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\ECS.h">
+    <ClInclude Include="include\core\ecs\coordinator\ECS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\Component.h">
+    <ClInclude Include="include\core\ecs\coordinator\ComponentArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\ComponentArray.h">
+    <ClInclude Include="include\core\ecs\coordinator\ComponentRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\ComponentRegistry.h">
+    <ClInclude Include="include\core\ecs\coordinator\Coordinator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\Coordinator.h">
+    <ClInclude Include="include\core\ecs\coordinator\EntityRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\EntityRegistry.h">
+    <ClInclude Include="include\core\ecs\coordinator\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\System.h">
+    <ClInclude Include="include\core\ecs\coordinator\SystemRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\SystemRegistry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\Game\Game.h">
+    <ClInclude Include="include\core\ecs\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\core\Physics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\ecs\Systems.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\core\ecs\StaticPointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\infra\engine\AssetImporter.h">
@@ -224,15 +263,12 @@
     <ClInclude Include="include\infra\renderer\GpuAssetLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\ecs\StaticPointlightComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\infra\renderer\PointlightLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Notes.txt" />
+    <ClInclude Include="include\core\ecs\components\PointlightComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\shader.glsl" />
@@ -246,7 +282,6 @@
     <None Include="assets\shaders\pointShadow.glsl" />
     <None Include="assets\shaders\depthCubeShader.glsl" />
     <None Include="assets\shaders\depthCubemapArrayShader.glsl" />
-    <None Include="assets\shaders\shaderBlinnPhongWithPointShadows.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\materials\textures\testTextures.jpg">

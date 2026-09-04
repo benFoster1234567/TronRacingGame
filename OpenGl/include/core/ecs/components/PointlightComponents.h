@@ -1,6 +1,6 @@
 #pragma once
-
-#include "Component.h"
+#include <glm/ext/vector_float3.hpp>
+#include "../coordinator/ECS.h"
 
 namespace Engine::Core::ECS
 {
