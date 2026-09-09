@@ -12,6 +12,11 @@ void Engine::Core::EngineSystem::zeroMouse()
 	inputHandler.mouseState.zeroMouseDelta();
 }
 
+void Engine::Core::EngineSystem::pollPhysicsEvents(const std::vector<ECS::PhysicsEvent>& eventQueue)
+{
+	game.pollPhysicsEvents(eventQueue);
+}
+
 void Engine::Core::EngineSystem::updateInputState()
 {
 	//std::cout << "updating input state\n";

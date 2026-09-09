@@ -1,58 +1,7 @@
 #pragma once
 #include "core/assets/AssetManager.h"
 #include "Renderer.h"
-/*
-void Engine::Infra::Renderer::loadMeshes(std::vector<Core::MeshData*>& meshes)
-{
-	int c = 0;
-	for (const auto& mesh : meshes)
-	{
-		c++;
-		mesh->recomputeNormals();
 
-		cacheMesh(mesh);
-		gpuMeshCache[mesh]->genBuffers();
-	}
-
-	screenQuad.create();
-	std::cout << c << " meshes loaded!\n";
-}
-
-void Engine::Infra::Renderer::loadShaders(std::vector<Core::ShaderData*>& shaders)
-{
-	for (const auto& shader : shaders)
-	{
-		//std::cout << "shader name: " << shader->name << "\n";
-		cacheShader(shader);
-		if (shader->name == "lightDebugShader")
-		{
-			DebugLightShader = gpuShaderCache[shader].get();
-		}
-		else if (shader->name == "shadowMap")
-		{
-			shadowShader = gpuShaderCache[shader].get();
-			std::cout << "shadow shader found!\n";
-		}
-		else if (shader->name == "depthBuffer")
-		{
-			depthShader = gpuShaderCache[shader].get();
-			std::cout << "depth shader found!\n";
-		}
-
-		gpuShaderCache[shader]->compileShaders();
-	}
-
-}
-
-void Engine::Infra::Renderer::loadTextures(std::vector<Core::TextureData*>& textures)
-{
-	for (const auto& texture : textures)
-	{
-		cacheTexture(texture);
-		gpuTextureCache[texture]->genTexture();
-	}
-}
-*/
 
 namespace Engine::Infra
 {

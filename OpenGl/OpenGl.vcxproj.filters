@@ -129,6 +129,9 @@
     <ClCompile Include="include\core\ecs\systems\PhysicsSystem.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\infra\bullet\BtPhysicsEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\Tester.h">
@@ -267,6 +270,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\core\ecs\components\PointlightComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infra\bullet\BtPhysicsEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\ecs\systems\PhysicsCommandsAndEvents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\ecs\components\PhysicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

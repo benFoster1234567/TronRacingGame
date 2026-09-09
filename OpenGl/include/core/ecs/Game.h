@@ -14,10 +14,11 @@
 #include "components/PointlightComponents.h"
 #include "components/ShaderComponent.h"
 #include "components/TransformComponent.h"
+#include "components/PhysicsComponent.h"
 
+#include "systems/PhysicsSystem.h"
 #include "systems/ControlSystems.h"
 #include "systems/LightSystems.h"
-#include "systems/PhysicsSystem.h"
 #include "systems/RenderDispatcherSystems.h"
 
 #include "core/input/KeyboardInput.h"
@@ -60,6 +61,8 @@ namespace Engine::Core::Game
 
 		// called in main loop - updates systems, etc.
 		virtual void update(float aspect, MouseInputResource mouseState, float deltaTime) = 0;
+
+		virtual void updatePhysics(float deltaTime) = 0;
 	};
 
 	class TestScene : public Scene
@@ -77,6 +80,7 @@ namespace Engine::Core::Game
 			coordinator.registerSystem<ECS::MouseControlSystem>();
 			coordinator.registerSystem<ECS::StaticLightRenderSetupSystem>();
 			coordinator.registerSystem<ECS::ShadowPointSystem>();
+			coordinator.registerSystem<ECS::PhysicsSystem>();
 		}
 
 		void registerComponents()
@@ -92,6 +96,7 @@ namespace Engine::Core::Game
 			coordinator.registerComponent<ECS::ExternalCameraComponent>();
 			coordinator.registerComponent<ECS::MaterialDataComponent>();
 			coordinator.registerComponent<ECS::ShadowCastComponent>();
+			coordinator.registerComponent<ECS::PhysicsComponent>();
 		}
 
 		void defineSystemSignatures()
@@ -127,12 +132,18 @@ namespace Engine::Core::Game
 			coordinator.setSystemSignature<ECS::StaticLightRenderSetupSystem>(lightSignature);
 
 			ECS::Signature shadowCastingSignature{};
-			
+
 			shadowCastingSignature.set(coordinator.getComponentType<ECS::ShadowCastComponent>());
 			shadowCastingSignature.set(coordinator.getComponentType<ECS::TransformComponent>());
 			shadowCastingSignature.set(coordinator.getComponentType<ECS::StaticPointLightComponent>());
 
 			coordinator.setSystemSignature<ECS::ShadowPointSystem>(shadowCastingSignature);
+
+			ECS::Signature physicsSystemSig{};
+
+			physicsSystemSig.set(coordinator.getComponentType<ECS::PhysicsComponent>());
+
+			coordinator.setSystemSignature<ECS::PhysicsSystem>(physicsSystemSig);
 		}
 
 		ECS::Entity setupPlayerEntity()
@@ -153,6 +164,7 @@ namespace Engine::Core::Game
 			assetManager.get(matComp.material, "testMaterial");
 			ECS::TransformComponent transform{};
 
+
 			transform.scale = { 2, 2, 2 };
 
 			if (matComp.material == nullptr)
@@ -163,6 +175,7 @@ namespace Engine::Core::Game
 			coordinator.addComponent(entity, mesh);
 			coordinator.addComponent(entity, transform);
 			coordinator.addComponent(entity, ECS::CameraComponent{});
+			coordinator.addComponent(entity, ECS::PhysicsComponent{});
 			coordinator.addComponent(entity, shader);
 			coordinator.addComponent(entity, ECS::OrbitalCameraComponent{});
 			coordinator.addComponent(entity, mis);
@@ -292,8 +305,8 @@ namespace Engine::Core::Game
 			t2.scale = glm::vec3{ 0.5f, 1, 0.5f };
 			t2.position = { 0,0,0 };
 			t2.rotation = { 0,0,0,1 };
-			
-			setupCubeEntity(playerEntity, t2, {1,2});
+
+			setupCubeEntity(playerEntity, t2, { 1,2 });
 
 			ECS::TransformComponent t{};
 			ECS::TransformComponent t3{};
@@ -301,12 +314,22 @@ namespace Engine::Core::Game
 
 			t.position = { 18, 7, -1 };
 			t3.position = { -18, 7, -1 };
-			t4.position = {1, 7, -2};
+			t4.position = { 1, 7, -2 };
 			auto lightEntity1 = setupLightEntity(t3);
 			auto lightEntity2 = setupLightEntity(t);
 
 			auto lightEntity3 = setupLightEntity(t4);
 
+		}
+
+		void pollPhysicsEvents(const std::vector<ECS::PhysicsEvent>& eventQueue)
+		{
+			coordinator.getSystem<ECS::PhysicsSystem>()->pollPhysicsEngine(eventQueue);
+		}
+
+		std::vector<ECS::PhysicsEngineCommand> getPhysicsEngineCommands()
+		{
+			return coordinator.getSystem<ECS::PhysicsSystem>()->getCommands();
 		}
 
 		void setupLights(std::vector<ECS::StaticPointLightRendererData>& lightSetupQueueOut)
@@ -321,6 +344,12 @@ namespace Engine::Core::Game
 
 		void shutdown() override
 		{
+
+		}
+
+		void updatePhysics(float deltaTime) override
+		{
+			coordinator.getSystem<ECS::PhysicsSystem>()->update(coordinator, deltaTime);
 
 		}
 

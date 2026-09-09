@@ -1,12 +1,16 @@
+/*
+* TODO: I need to ensure proper cache locality when passing data from the Core layer to the Infra Layer
+*/
+
 
 #pragma once
-
 #include "core/assets/AssetPipeline.h"
 #include "core/assets/AssetManager.h"
 #include "core/input/KeyboardInput.h"
 #include "core/input/Keys.h"
-//#include "core/ecs/ECS.h"
+#include "../ecs/systems/PhysicsCommandsAndEvents.h"
 #include "../ecs/Game.h"
+//#include "core/ecs/ECS.h"
 namespace Engine::Core
 {
 	constexpr int MAX_ENTITIES{ 100 };
@@ -28,6 +32,7 @@ namespace Engine::Core
 
 		float aspect{ 1.0f };
 		float deltaTime{ 1.0f };
+
 	};
 
 	class EngineSystem
@@ -67,8 +72,18 @@ namespace Engine::Core
 		void updateMouse( double xpos, double ypos);
 		void zeroMouse();
 		void updateGame() { game.update(aspect, inputHandler.mouseState, deltaTime); }
+		void updatePhysics() { game.updatePhysics(deltaTime); }
+
+		std::vector<ECS::PhysicsEngineCommand> getPhysicsCommandQueue()
+		{
+			return game.getPhysicsEngineCommands();
+		}
+
+		void pollPhysicsEvents(const std::vector<ECS::PhysicsEvent>& eventQueue);
+		
 		void updateInputState();
 		void setTextureUvTiling(std::string textureName, glm::vec2 uvTiling);
+		
 
 	};
 }

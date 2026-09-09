@@ -177,7 +177,6 @@ void Engine::Infra::Application::setupImportCallbacks()
 
 void Engine::Infra::Application::run()
 {
-	//TODO: ensure that all of the dispatchers are reset when this is destroyed.
 	
 	Engine::Core::ECS::RenderDispatcher::sendRenderInfo.subscribe([&](Engine::Core::ECS::RenderOutput output)
 		{
@@ -191,25 +190,27 @@ void Engine::Infra::Application::run()
 	importAssets();
 
 	GpuAssetLoader::fillRenderer(engine.assetManager, renderer);
-
-	std::vector<Engine::Core::ECS::StaticPointLightRendererData> lightData{};
-
-	//TODO: Tidy this up
-	engine.setUpGame();
-	engine.fillStaticLightVector(lightData);
-
-	std::vector<StaticPointLightResource> pointLights{};
-	for (const auto& light : lightData)
+	
 	{
-		StaticPointLightResource splr{};
-		splr.position = light.position;
-		splr.color = light.color;
-		splr.radius = light.radius;
-		splr.intensity = light.intensity;
-		pointLights.push_back(splr);
-	}
+		std::vector<Engine::Core::ECS::StaticPointLightRendererData> lightData{};
+		std::vector<StaticPointLightResource> pointLights{};
 
-	renderer.loadLights(pointLights);
+		//TODO: Tidy this up
+		engine.setUpGame();
+		engine.fillStaticLightVector(lightData);
+
+		for (const auto& light : lightData)
+		{
+			StaticPointLightResource splr{};
+			splr.position = light.position;
+			splr.color = light.color;
+			splr.radius = light.radius;
+			splr.intensity = light.intensity;
+			pointLights.push_back(splr);
+		}
+
+		renderer.loadLights(pointLights);
+	}
 
 	auto shadowCastingLightData = engine.getShadowCastingPointlights();
 	std::vector<StaticPointLightResource> shadowCastingPointlights{};
@@ -230,23 +231,37 @@ void Engine::Infra::Application::run()
 	window->disableCursor();
 	renderer.prepareDepthCubemapArray();
 
+	float physicsUpdateSeconds = 1.0f;
+	float physicsUpdateAccum = 0.0f;
+
 	while (!window->shouldClose())
 	{
 		window->pollEvents();
 		window->updateViewport();
+		window->updateDeltaTime();
+		float deltaTime = window->deltaTime();
 
-		//renderer.clear();
-
+		physicsUpdateAccum = physicsUpdateAccum < physicsUpdateSeconds ? physicsUpdateAccum + deltaTime : 0.0f;
+		
 		float currentWidth = static_cast<float>(window->getWidth());
 		float currentHeight = static_cast<float>(window->getHeight());
-
 		double x{}, y{};
-		window->updateDeltaTime();
+		
 		window->getMousePosition(x, y);
+
 		engine.updateAspect(currentWidth / currentHeight);
-		engine.updateDeltaTime(window->deltaTime());
+		engine.updateDeltaTime(deltaTime);
 		engine.updateMouse(x, y);
 		engine.updateGame();
+
+		if (physicsUpdateAccum == 0.0f)
+		{
+			engine.updatePhysics();
+			btPhysicsEngine.loadPhysicsCommands(engine.getPhysicsCommandQueue());
+			btPhysicsEngine.runSimulation();
+		}
+
+		engine.pollPhysicsEvents(btPhysicsEngine.pollEvents());
 		engine.zeroMouse();
 
 		renderer.flush(currentWidth, currentHeight);

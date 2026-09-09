@@ -151,6 +151,7 @@
     <ClCompile Include="include\core\ecs\systems\ControlSystems.cpp" />
     <ClCompile Include="include\core\ecs\systems\LightSystems.cpp" />
     <ClCompile Include="include\core\ecs\systems\PhysicsSystem.cpp" />
+    <ClCompile Include="include\infra\bullet\BtPhysicsEngine.cpp" />
     <ClCompile Include="src\core\AssetManager.cpp" />
     <ClCompile Include="src\core\ecs\EntityRegistry.cpp" />
     <ClCompile Include="src\core\MeshData.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="include\core\assets\MaterialRenderData.h" />
     <ClInclude Include="include\core\assets\ShaderData.h" />
     <ClInclude Include="include\core\assets\TextureFileNameRegistry.h" />
+    <ClInclude Include="include\core\ecs\components\PhysicsComponent.h" />
     <ClInclude Include="include\core\ecs\components\PointlightComponents.h" />
     <ClInclude Include="include\core\ecs\coordinator\ComponentArray.h" />
     <ClInclude Include="include\core\ecs\coordinator\ComponentRegistry.h" />
@@ -189,11 +191,14 @@
     <ClInclude Include="include\core\ecs\coordinator\EntityRegistry.h" />
     <ClInclude Include="include\core\ecs\coordinator\System.h" />
     <ClInclude Include="include\core\ecs\coordinator\SystemRegistry.h" />
+    <ClInclude Include="include\core\ecs\systems\PhysicsCommandsAndEvents.h" />
     <ClInclude Include="include\core\engine\Engine.h" />
     <ClInclude Include="include\core\events\EventDispatcher.h" />
     <ClInclude Include="include\core\ecs\Game.h" />
     <ClInclude Include="include\core\Physics.h" />
     <ClInclude Include="include\infra\app\Application.h" />
+    <ClInclude Include="include\infra\bullet\BtPhysicsEngine.h" />
+    <ClInclude Include="include\infra\bullet\Bullet.h" />
     <ClInclude Include="include\infra\engine\AssetImporter.h" />
     <ClInclude Include="include\infra\engine\DebugConsoleUI.h" />
     <ClInclude Include="include\infra\engine\ImportFuncs.h" />
